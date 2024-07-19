@@ -1,3 +1,0 @@
-interface DebugMe {
-  void printDebug();
-}

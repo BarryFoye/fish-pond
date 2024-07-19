@@ -1,5 +1,5 @@
 class Spawn {
-
+  private DebugScreen debugScreen;
   PVector tlCorner;
   float _width;
   float _height;
@@ -11,14 +11,16 @@ class Spawn {
   
   Timer timer;
   
-  Spawn(PVector tlCorner, float _width, float _height, float maxPopulationSpawnLimit){
+  Spawn(PVector tlCorner, float _width, float _height, float maxPopulationSpawnLimit, DebugScreen debugScreen){
     this.tlCorner = tlCorner;
     this._width = _width;
     this._height = _height;
     this.maxPopulationSpawnLimit = maxPopulationSpawnLimit;
+    this.debugScreen = debugScreen;
     timer = new Timer(SPAWN_TIME);
     canSpawnAfterTime = true;
     spawnAreaClear = true;
+    
   }
   
   void run(ArrayList<Agent> agents) {
@@ -79,7 +81,9 @@ class Spawn {
         PVector agentPos = PVector.random2D();// new PVector(tlCorner.x + _width / 2, tlCorner.y + _height / 2);
         agentPos.x = (tlCorner.x + _width / 2);
         agentPos.y = tlCorner.y + _height / 2;
-        agents.add(new Agent(agentPos, 20, random(1, 5)));
+        Agent newAgent = new Agent(agentPos, 20, random(1, 5));
+        newAgent.setDebugger(this.debugScreen);
+        agents.add(newAgent);
         canSpawnAfterTime = false;
         timer.resetTimer();
       }

@@ -1,5 +1,5 @@
-class Agent implements DebugMe{
-  
+class Agent {
+  @Debug float agentId;
   float radius;
   PVector pos;
   boolean isAlive;
@@ -9,7 +9,10 @@ class Agent implements DebugMe{
   
   float stepSize;
   
+  float startRadius = 5;
+  
   Agent(){
+    this.agentId = random(0, 999999);
     this.radius = 30;
     this.pos = new PVector(random(startRadius, width - this.radius), random(startRadius, height - this.radius));
     this.xDir = random(-10.0, 10.0);
@@ -18,14 +21,14 @@ class Agent implements DebugMe{
     this.isAlive = true;
   }
   
-  Agent(PVector pos, float radius, float stepSize){
+  Agent(PVector pos, float radius, float stepSize){    
+    this.agentId = random(0, 999999);
     this.radius = radius;
     this.pos = pos;
     this.xDir = random(-10.0, 10.0);
     this.yDir = random(-10.0, 10.0);
     this.stepSize = stepSize;
-    this.isAlive = true;
-    debugScreen.addDebugger(this);
+    this.isAlive = true;    
   }
 
   void run(ArrayList<Agent> allAgents){
@@ -73,12 +76,12 @@ class Agent implements DebugMe{
    // if (nextAgent.xPos == )
   }
   
-  // Debug logic
-  @Override
-  void printDebug() {    
-    fill(255);    
-    text("Hello World", width - 70, 70);
-    noFill();
+  void setDebugger(DebugScreen debugScreen) {
+    debugScreen.addDebugger(this);
+  }
+  
+  void removeDebugger(DebugScreen debugScreen) {
+    debugScreen.removeDebugger(this);
   }
 
  }
